@@ -1,94 +1,129 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Pressable } from 'react-native';
 
 export default function App() {
-  const [userId, setUserId] = useState(0)
-  const [usuario, setUsuario] = useState('')
-  const [cidade, setCidade] = useState('')
-  const [errou, setErro] = useState('')
-  const [userAdd, setUserAdd] = useState('')
-  const [cityAdd, setCityAdd] = useState('')
+  const [id, setID] = useState('')
+  const [filme, setFilme] = useState('')
+  const [genero, setGenero] = useState('')
+  const [ano, setAno] = useState('')
+  const [classif, setClassif] = useState('')
+  const [idioma, setIdioma] = useState('')
 
   return (
     <View style={styles.container}>
-      <Text style={styles.texto2}>ID:</Text>
-      <TextInput
-        style={styles.ID}
-        onChangeText={(e) => setUserId(e)}
-      />
-      <View style={styles.btn}>
-        <Button
-          title='Buscar'
-          color='red'
-          //onPress={buscar}
+
+      <View style={styles.stGet}>
+        <View style={{ flexDirection: 'row', padding: 10 }}>
+          <Text>ID:</Text>
+          <TextInput
+            value={id}
+            onChangeText={(e) => { setID(e) }}
+            style={styles.caixaID}
+          />
+          <Pressable
+            style={styles.btn}
+          >
+            <Text style={{ fontWeight: 'bold', }}>GET</Text>
+          </Pressable>
+        </View>
+        <Text>Filme</Text>
+        <Text style={styles.caixaGet}>{filme}</Text>
+        <Text>Gênero</Text>
+        <Text style={styles.caixaGet}>{genero}</Text>
+        <Text>Ano</Text>
+        <Text style={styles.caixaGet}>{ano}</Text>
+        <Text>Idioma</Text>
+        <Text style={styles.caixaGet}>{idioma}</Text>
+        <Text>Classificação</Text>
+        <Text style={styles.caixaGet}>{classif}</Text>
+      </View>
+
+      <View style={styles.stPost}>
+        <Pressable
+            style={styles.btn}
+          >
+            <Text style={{ fontWeight: 'bold', }}>POST</Text>
+          </Pressable>
+        <Text>Filme</Text>
+        <TextInput
+          value={filme}
+          onChangeText={(e) => { setFilme(e) }}
+          style={styles.caixaPost}
+        />
+        <Text>Gênero</Text>
+        <TextInput
+          value={genero}
+          onChangeText={(e) => { setGenero(e) }}
+          style={styles.caixaPost}
+        />
+        <Text>Ano</Text>
+        <TextInput
+          value={ano}
+          onChangeText={(e) => { setAno(e) }}
+          style={styles.caixaPost}
+        />
+        <Text>Idioma</Text>
+        <TextInput
+          value={idioma}
+          onChangeText={(e) => { setIdioma(e) }}
+          style={styles.caixaPost}
+        />
+        <Text>Classificação</Text>
+        <TextInput
+          value={classif}
+          onChangeText={(e) => { setClassif(e) }}
+          style={styles.caixaPost}
         />
       </View>
-      <Text style={styles.texto2}>Nome:</Text>
-      <Text style={styles.texto}>{usuario}</Text>
-      <Text style={styles.texto2}>Cidade:</Text>
-      <Text style={styles.texto}>{cidade}</Text>
 
-      <Text style={styles.texto2}>Usuário:</Text>
-      <TextInput
-        style={styles.addNew}
-        onChangeText={(e) => setUserAdd(e)}
-      />
-      <Text style={styles.texto2}>Cidade:</Text>
-      <TextInput
-        style={styles.addNew}
-        onChangeText={(e) => setCityAdd(e)}
-      />
 
-      <View style={styles.btn}>
-        <Button
-          title='Add'
-          color='blue'
-          //onPress={adicionar}
-        />
-      </View>
     </View>
-  );
+  )
 }
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    marginLeft: 30
+    padding: 20
   },
-  ID: {
+  stGet: {
+    flex: 1,
+  },
+  stPost: {
+    flex: 1,
+  },
+  caixaGet: {
+    height: 30,
+    borderRadius: 8,
+    padding: 5,
+    backgroundColor: 'grey',
+    width: '90%',
+    marginBottom: 10
+  },
+  caixaPost: {
+    height: 30,
+    borderRadius: 8,
+    padding: 5,
+    width: '90%',
+    marginBottom: 10,
+    borderWidth: 1
+  },
+  caixaID: {
     width: '20%',
-    height: 40,
-    borderRadius: 10,
+    height: 30,
     borderWidth: 1,
-    paddingLeft:10,
-    fontWeight: 'bold'
-  },
-  addNew: {
-    width: '80%',
-    height: 40,
-    borderRadius: 10,
-    borderWidth: 1,
-    paddingLeft:10,
-    fontWeight: 'bold'
-  },
-  texto: {
-    width: '80%',
-    height: 40,
-    borderRadius: 10,
-    backgroundColor: '#bbb',
-    borderWidth: 1,
-    padding:10,
-    fontWeight: 'bold'
-  },
-  texto2: {
-    marginTop: 10,
-    marginLeft: 10
+    borderRadius: 8,
+    paddingLeft:5
   },
   btn: {
-    width: 100,
-    height: 40,
-    marginTop: 10,
+    width: '20%',
+    height: 30,
+    backgroundColor: '#ff6347',
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1
   }
-});
+})
