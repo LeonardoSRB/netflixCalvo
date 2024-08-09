@@ -5,4 +5,4 @@ class Filmes(models.Model):
     genero = models.CharField(max_length=255)
     ano = models.CharField(max_length=255)
     idioma = models.CharField(max_length=255)
-    classific = models.CharField(max_length=255)
+    classif = models.CharField(max_length=255)

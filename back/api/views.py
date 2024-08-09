@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView
-from django.shortcuts import render
 from .models import Filmes
 from .serializer import FilmesSerializer
 from rest_framework.response import Response
