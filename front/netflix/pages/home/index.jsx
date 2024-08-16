@@ -19,14 +19,37 @@ export default function Home() {
     const capturar = async ()=>{
         try{
             const response = await axios.get(
-                
+                'http://127.0.0.1:8000/api/filme/' + id
             )
+            console.log(response.data)
+            setFilmeG(response.data.titulo)
+            setGeneroG(response.data.genero)
+            setAnoG(response.data.ano)
+            setClassifG(response.data.classif)
+            setIdiomaG(response.data.idioma)
         }catch{
-
+            console.log(Error)
         }
     }
 
+    const enviar = async () => {
+        try {
+            const response = await axios.post(
+                'http://127.0.0.1:8000/api/listarfilmes',
+                {
+                    titulo: filme,
+                    genero: genero,
+                    ano: ano,
+                    classif: classif,
+                    idioma: idioma
+                }
+            )
+            console.log('Dados inseridos com sucesso...')
 
+        } catch (error) {
+            
+        }
+    }
 
 
     return (
@@ -42,6 +65,7 @@ export default function Home() {
                     />
                     <Pressable
                         style={styles.btn}
+                        onPress={capturar}
                     >
                         <Text style={{ fontWeight: 'bold', }}>GET</Text>
                     </Pressable>
