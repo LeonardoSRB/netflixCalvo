@@ -1,0 +1,33 @@
+-- database: c:\Users\43609065877\Documents\lindomar\2ds-mb-11\back\db.sqlite3
+
+SELECT * FROM api_filmes;
+
+
+
+DELETE FROM api_filmes;
+
+
+INSERT INTO api_filmes (titulo, genero, ano, idioma, classif) VALUES
+('The Shawshank Redemption', 'Drama', '1994', 'Inglês', '18+'),
+('The Godfather', 'Crime', '1972', 'Inglês', '18+'),
+('The Dark Knight', 'Ação', '2008', 'Inglês', '12+'),
+('Schindler "s List', 'Drama', '1993', 'Inglês', '18+'),
+('Pulp Fiction', 'Crime', '1994', 'Inglês', '18+'),
+('The Lord of the Rings: The Return of the King', 'Fantasia', '2003', 'Inglês', '12+'),
+('Forrest Gump', 'Drama', '1994', 'Inglês', '12+'),
+('Inception', 'Ficção Científica', '2010', 'Inglês', '12+'),
+('Fight Club', 'Drama', '1999', 'Inglês', '18+'),
+('The Matrix', 'Ficção Científica', '1999', 'Inglês', '16+'),
+('Goodfellas', 'Crime', '1990', 'Inglês', '18+'),
+('Se7en', 'Mistério', '1995', 'Inglês', '18+'),
+('The Silence of the Lambs', 'Suspense', '1991', 'Inglês', '18+'),
+('Saving Private Ryan', 'Guerra', '1998', 'Inglês', '16+'),
+('The Green Mile', 'Drama', '1999', 'Inglês', '16+'),
+('Interstellar', 'Ficção Científica', '2014', 'Inglês', '12+'),
+('Gladiator', 'Ação', '2000', 'Inglês', '16+'),
+('Braveheart', 'Histórico', '1995', 'Inglês', '16+'),
+('The Lion King', 'Animação', '1994', 'Inglês', 'Livre'),
+('Back to the Future', 'Ficção Científica', '1985', 'Inglês', 'Livre');
+
+UPDATE api_filmes 
+SET genero = '';

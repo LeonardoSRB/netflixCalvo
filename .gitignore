@@ -1,4 +1,3 @@
-back/env/
-back/env
+env
 node_modules
 .expo

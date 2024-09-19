@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Text, View, TextInput, Button, Pressable } from 'react-native';
 import styles from './styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Home() {
     const [id, setID] = useState('')
@@ -15,15 +16,46 @@ export default function Home() {
     const [ano, setAno] = useState('')
     const [classif, setClassif] = useState('')
     const [idioma, setIdioma] = useState('')
+    const [token, setToken] = useState('')
+
+    useEffect(() => {
+        AsyncStorage.getItem('token')
+        .then(
+            (resp) => {
+                if (token != null) {
+                    console.log('Token Home:', resp)
+                    setToken(resp)
+                }
+            }
+        )
+        .catch(
+            (error) => {
+                console.error("Erro ao ao salvar o token", error)
+            }
+        )
+    }, [token])
 
     const capturar = async ()=>{
         try{
             const response = await axios.get(
-                'http://127.0.0.1:8000/api/filme/' + id
+                'http://127.0.0.1:8000/api/filme/' + id,{
+                    headers:{
+                        Authorization: `Bearer ${token}`
+                    }
+                }
             )
+
+            const calvo = await axios.get(
+                'http://127.0.0.1:8000/api/genero/' + response.data.genre
+            )
+
+            const classif = await axios.get(
+                'http://127.0.0.1:8000/api/classif/' + response.data.classif
+            )
+            
             console.log(response.data)
             setFilmeG(response.data.titulo)
-            setGeneroG(response.data.genero)
+            setGeneroG(calvo.data.genre)
             setAnoG(response.data.ano)
             setClassifG(response.data.classif)
             setIdiomaG(response.data.idioma)
@@ -45,6 +77,11 @@ export default function Home() {
                 }
             )
             console.log('Dados inseridos com sucesso...')
+            setFilme('')
+            setGenero('')
+            setAno('')
+            setClassif('')
+            setIdioma('')
 
         } catch (error) {  
             console.log('Erro ao inserir os dados...', error) 
@@ -61,6 +98,10 @@ export default function Home() {
                     ano: anoG,
                     classif: classifG,
                     idioma: idiomaG
+                },{
+                    headers:{
+                        Authorization: `Bearer ${token}`
+                    }
                 }
             )
             console.log('Alterado com sucesso...')
@@ -68,10 +109,26 @@ export default function Home() {
             console.log('Erro ao atualizar', error)
         }
     }
+    
+    const apagar = async () => {
+        try {
+            const response = await axios.delete(
+                'http://127.0.0.1:8000/api/filme/' + id
+            )
+            console.log('Apagado com sucesso...')
+            setFilmeG('')
+            setGeneroG('')
+            setAnoG('')
+            setClassifG('')
+            setIdiomaG('')
+        } catch (error) {
+            console.log('Erro ao atualizar', error)
+        }
+    }
 
     return (
         <View style={styles.container}>
-
+            <View style={{padding:20}}>
             <View style={styles.stGet}>
                 <View style={{ flexDirection: 'row', padding: 10 }}>
                     <Text>ID:</Text>
@@ -94,7 +151,7 @@ export default function Home() {
                     </Pressable>
                     <Pressable
                         style={styles.btnDe}
-                        onPress={atualizar}
+                        onPress={apagar}
                     >
                         <Text style={{ fontWeight: 'bold', }}>DEL</Text>
                     </Pressable>
@@ -173,10 +230,8 @@ export default function Home() {
                     style={styles.caixaPost}
                 />
             </View>
-
+            </View>
 
         </View>
     )
 }
-
-
