@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Text, View, TextInput, Button, Pressable } from 'react-native';
 import styles from './styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as ImagePicker from "expo-image-picker";
 
 export default function Home() {
     const [id, setID] = useState('')
@@ -126,112 +127,143 @@ export default function Home() {
         }
     }
 
+    
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+
     return (
         <View style={styles.container}>
-            <View style={{padding:20}}>
-            <View style={styles.stGet}>
-                <View style={{ flexDirection: 'row', padding: 10 }}>
-                    <Text>ID:</Text>
-                    <TextInput
-                        value={id}
-                        onChangeText={(e) => { setID(e) }}
-                        style={styles.caixaID}
-                    />
-                    <Pressable
-                        style={styles.btnGe}
-                        onPress={capturar}
-                    >
-                        <Text style={{ fontWeight: 'bold', }}>GET</Text>
-                    </Pressable>
-                    <Pressable
-                        style={styles.btnPu}
-                        onPress={atualizar}
-                    >
-                        <Text style={{ fontWeight: 'bold', }}>PUT</Text>
-                    </Pressable>
-                    <Pressable
-                        style={styles.btnDe}
-                        onPress={apagar}
-                    >
-                        <Text style={{ fontWeight: 'bold', }}>DEL</Text>
-                    </Pressable>
-                </View>
-                <Text>Filme</Text>
-                <TextInput 
-                    style={styles.caixaGet}
-                    value={filmeG}
-                    onChangeText={(e)=>setFilmeG(e)}
-                />
-                
-                <Text>Gênero</Text>
-                <TextInput
-                    style={styles.caixaGet}
-                    value={generoG}
-                    onChangeText={(e)=>setGeneroG(e)}
-                />
-
+          <View style={styles.stGet}>
+            <View style={{ flexDirection: "row", padding: 10 }}>
+              <Text>ID:</Text>
+              <TextInput
+                value={id}
+                onChangeText={(e) => {
+                  setID(e);
+                }}
+                style={styles.caixaID}
+              />
+              <Pressable style={styles.btnGe} onPress={capturar}>
+                <Text style={{ fontWeight: "bold" }}>GET</Text>
+              </Pressable>
+              <Pressable style={styles.btnPu} onPress={atualizar}>
+                <Text style={{ fontWeight: "bold" }}>PUT</Text>
+              </Pressable>
+              <Pressable style={styles.btnDe} onPress={apagar}>
+                <Text style={{ fontWeight: "bold" }}>DEL</Text>
+              </Pressable>
+            </View>
+            <Text>Filme</Text>
+            <TextInput
+              style={styles.caixaGet}
+              value={filmeG}
+              onChangeText={(e) => setFilmeG(e)}
+            />
+    
+            <Text>Gênero</Text>
+            <TextInput
+              style={styles.caixaGet}
+              value={generoG}
+              onChangeText={(e) => setGeneroG(e)}
+            />
+    
+            <View style={styles.foto03}>
+              <View style={styles.foto01}>
                 <Text>Ano</Text>
                 <TextInput
-                    style={styles.caixaGet}
-                    value={anoG}
-                    onChangeText={(e)=>setAnoG(e)}
+                  style={styles.caixaGet2}
+                  value={anoG}
+                  onChangeText={(e) => setAnoG(e)}
                 />
-                
+    
                 <Text>Idioma</Text>
                 <TextInput
-                    style={styles.caixaGet}
-                    value={idiomaG}
-                    onChangeText={(e)=>setIdiomaG(e)}
+                  style={styles.caixaGet2}
+                  value={idiomaG}
+                  onChangeText={(e) => setIdiomaG(e)}
                 />
-                
+    
                 <Text>Classificação</Text>
                 <TextInput
-                    style={styles.caixaGet}
-                    value={classifG}
-                    onChangeText={(e)=>setClassifG(e)}
+                  style={styles.caixaGet2}
+                  value={classifG}
+                  onChangeText={(e) => setClassifG(e)}
                 />
+              </View>
+              <View style={styles.foto02}>
+                {/* <Image
+                  style={styles.foto04}
+                  source={{ uri: imageSource}}
+                /> */}
+              </View>
+              
             </View>
-
-            <View style={styles.stPost}>
-                <Pressable
-                    style={styles.btnPo}
-                    onPress={enviar}
-                >
-                    <Text style={{ fontWeight: 'bold', }}>POST</Text>
-                </Pressable>
-                <Text>Filme</Text>
-                <TextInput
-                    value={filme}
-                    onChangeText={(e) => { setFilme(e) }}
-                    style={styles.caixaPost}
-                />
-                <Text>Gênero</Text>
-                <TextInput
-                    value={genero}
-                    onChangeText={(e) => { setGenero(e) }}
-                    style={styles.caixaPost}
-                />
+          </View>
+    
+          <View style={styles.stPost}>
+            <Pressable style={styles.btnPo} onPress={enviar}>
+              <Text style={{ fontWeight: "bold" }}>POST</Text>
+            </Pressable>
+            <Text>Filme</Text>
+            <TextInput
+              value={filme}
+              onChangeText={(e) => {
+                setFilme(e);
+              }}
+              style={styles.caixaPost}
+            />
+            <Text>Gênero</Text>
+            <TextInput
+              value={genero}
+              onChangeText={(e) => {
+                setGenero(e);
+              }}
+              style={styles.caixaPost}
+            />
+            <View style={styles.foto03}>
+              <View style={styles.foto01}>
                 <Text>Ano</Text>
                 <TextInput
-                    value={ano}
-                    onChangeText={(e) => { setAno(e) }}
-                    style={styles.caixaPost}
+                  value={ano}
+                  onChangeText={(e) => {
+                    setAno(e);
+                  }}
+                  style={styles.caixaPost2}
                 />
                 <Text>Idioma</Text>
                 <TextInput
-                    value={idioma}
-                    onChangeText={(e) => { setIdioma(e) }}
-                    style={styles.caixaPost}
+                  value={idioma}
+                  onChangeText={(e) => {
+                    setIdioma(e);
+                  }}
+                  style={styles.caixaPost2}
                 />
                 <Text>Classificação</Text>
                 <TextInput
-                    value={classif}
-                    onChangeText={(e) => { setClassif(e) }}
-                    style={styles.caixaPost}
+                  value={classif}
+                  onChangeText={(e) => {
+                    setClassif(e);
+                  }}
+                  style={styles.caixaPost2}
                 />
+              </View>
+              <Pressable style={styles.foto02} >
+                {/* <Image
+                  style={styles.foto04}
+                  source={{
+                    uri: base64,
+                  }}
+                /> */}
+              </Pressable>
             </View>
-            </View>
-
+          </View>
         </View>
-    )
+      );
 }
